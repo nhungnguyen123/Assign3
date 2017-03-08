@@ -41,7 +41,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.TimelineActivity" />
-        <activity android:name=".activity.PostFragment"></activity>
+        <activity android:name=".activity.PostFragment" />
+        <activity android:name=".activity.DetailActivity"></activity>
     </application>
 
 </manifest>

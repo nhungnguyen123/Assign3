@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.codepath.apps.mysimletweets.R;
@@ -35,6 +36,10 @@ public class PostFragment extends DialogFragment {
 
     @BindView(R.id.textView)
     TextView mTvChange;
+
+//    @BindView(R.id.pbLoad)
+//    ProgressBar mPBLoad;
+
 
 
     Twitterclient twitterclient;

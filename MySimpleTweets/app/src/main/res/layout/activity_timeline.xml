@@ -6,10 +6,16 @@
     android:layout_height="match_parent"
     tools:context="com.codepath.apps.mysimletweets.activity.TimelineActivity">
 
+    <ProgressBar
+        android:id="@+id/pbLoad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
 
         <include
             android:id="@+id/toolbar"
@@ -17,10 +23,16 @@
             android:layout_width="match_parent"
             android:layout_height="?android:actionBarSize" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/lv_tw"
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipeContainer"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/toolbar" />
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/lv_tw"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/toolbar" />
+        </android.support.v4.widget.SwipeRefreshLayout>
     </LinearLayout>
 </RelativeLayout>

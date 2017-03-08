@@ -1,5 +1,7 @@
 package com.codepath.apps.mysimletweets.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.text.format.DateUtils;
 
 import com.google.gson.annotations.SerializedName;
@@ -12,7 +14,7 @@ import java.util.Locale;
  * Created by hongnhung on 05/03/2017.
  */
 
-public class Tweet {
+public class Tweet implements Parcelable {
     @SerializedName("id")
     private long id;
 
@@ -25,6 +27,25 @@ public class Tweet {
 
     @SerializedName("created_at")
     private String created_at;
+
+    protected Tweet(Parcel in) {
+        id = in.readLong();
+        text = in.readString();
+        created_at = in.readString();
+        ProfileImageUrl = in.readString();
+    }
+
+    public static final Creator<Tweet> CREATOR = new Creator<Tweet>() {
+        @Override
+        public Tweet createFromParcel(Parcel in) {
+            return new Tweet(in);
+        }
+
+        @Override
+        public Tweet[] newArray(int size) {
+            return new Tweet[size];
+        }
+    };
 
     public String getCreated_at() {
         return created_at;
@@ -87,5 +108,18 @@ public class Tweet {
         }
 
         return relativeDate;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(id);
+        dest.writeString(text);
+        dest.writeString(created_at);
+        dest.writeString(ProfileImageUrl);
     }
 }

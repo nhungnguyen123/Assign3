@@ -56,18 +56,27 @@ public class TweetArrayAdapter extends RecyclerView.Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_tweet, null);
+
         return new TweetViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
 
         Tweet tweet = mList.get(position);
         TweetViewHolder tweetViewHolder = (TweetViewHolder) holder;
-
         tweetViewHolder.mTvName.setText(tweet.getUser().getName());
         tweetViewHolder.mTvContent.setText(tweet.getText());
         tweetViewHolder.mTvTime.setText(tweet.getRelativeTimeAgo());
+
+        tweetViewHolder.mImgTweet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e("click icon", "ok");
+                mListenTweet.showDetail(mList.get(position));
+            }
+        });
+
         Log.e("time", tweet.getRelativeTimeAgo());
 
         if (tweet.getUser().getProfileImage() == null) {

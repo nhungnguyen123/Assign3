@@ -3,6 +3,7 @@ package com.codepath.apps.mysimletweets.activity;
 import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.codepath.apps.mysimletweets.R;
@@ -48,6 +50,10 @@ public class TimelineActivity extends AppCompatActivity {
     @BindView(R.id.lv_tw)
     RecyclerView rvTw;
 
+    @BindView(R.id.swipeContainer)
+    SwipeRefreshLayout mSwipe;
+
+
     TweetArrayAdapter mTweetArrayAdapter;
 
     @Override
@@ -71,6 +77,15 @@ public class TimelineActivity extends AppCompatActivity {
                 Log.e("nice", "ok");
             }
         };
+        mSwipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mSearchRequest.reset();
+                mList.clear();
+                publishTimeline();
+                mSwipe.setRefreshing(false);
+            }
+        });
 
     }
 
@@ -126,10 +141,24 @@ public class TimelineActivity extends AppCompatActivity {
         rvTw.setLayoutManager(gridLayoutManager);
         mTweetArrayAdapter = new TweetArrayAdapter(mList, TimelineActivity.this);
         rvTw.setAdapter(mTweetArrayAdapter);
+        rvTw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         mTweetArrayAdapter.setmListenTweet(new ListenTweet() {
             @Override
             public void loadMore() {
                 publishTimeline();
+            }
+
+            @Override
+            public void showDetail(Tweet user) {
+                Intent intent = new Intent(TimelineActivity.this, DetailActivity.class);
+                intent.putExtra("detail", user);
+                startActivity(intent);
+
             }
         });
 
