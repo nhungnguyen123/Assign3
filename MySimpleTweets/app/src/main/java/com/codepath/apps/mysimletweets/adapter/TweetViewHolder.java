@@ -31,6 +31,10 @@ public class TweetViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.img_tweet)
     ImageView mImgTweet;
 
+    @BindView(R.id.tv_time)
+    TextView mTvTime;
+
+
 
 
     public TweetViewHolder(View itemView) {

@@ -2,6 +2,7 @@ package com.codepath.apps.mysimletweets.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +13,10 @@ import com.bumptech.glide.Glide;
 import com.codepath.apps.mysimletweets.R;
 import com.codepath.apps.mysimletweets.models.Tweet;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
@@ -63,6 +67,8 @@ public class TweetArrayAdapter extends RecyclerView.Adapter {
 
         tweetViewHolder.mTvName.setText(tweet.getUser().getName());
         tweetViewHolder.mTvContent.setText(tweet.getText());
+        tweetViewHolder.mTvTime.setText(tweet.getRelativeTimeAgo());
+        Log.e("time", tweet.getRelativeTimeAgo());
 
         if (tweet.getUser().getProfileImage() == null) {
             Log.e("getProImaUrl", "null");
@@ -98,4 +104,6 @@ public class TweetArrayAdapter extends RecyclerView.Adapter {
     public int getItemCount() {
         return mList.size();
     }
+
+
 }
